@@ -75,7 +75,6 @@ def getTasks(start_date, end_date):
             'start_date': start_date,
             'end_date': end_date,
         }
-        token = token.replace(':api_token', '')
         response = requests.get(
             'https://api.track.toggl.com/api/v9/me/time_entries',
             params=params,
