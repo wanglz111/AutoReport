@@ -124,7 +124,7 @@ def formatTotalTime(totalTime):
 
 
 def formatOutput(tasksTime):
-    output = "## pug\n"
+    output = ""
     for task in tasksTime:
         output += "- " + task + " " + \
             convertSecondToHour(tasksTime[task]) + "\n"
