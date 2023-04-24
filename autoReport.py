@@ -181,12 +181,18 @@ def report(yearweek, timeDetails, totalTime):
     )
 
 
-def sendBarkMessage(content):
+def sendBarkMessage(title, content):
     if bark_key:
-        response = requests.get(
-            'https://api.day.app/{}/{}/{}'.format(
-                bark_key, "pug report", content),
-        )
+        headers = {
+            'Content-Type': 'application/json; charset=utf-8',
+        }
+
+        json_data = {
+            'body': content,
+            'title': title,
+        }
+
+        response = requests.post('https://api.day.app/{}'.format(bark_key), headers=headers, json=json_data)
 
 
 def main():
@@ -200,4 +206,5 @@ def main():
         'h\n\n' + convertSecondToHour(totalTime)
     report(year + week, timeDetails, reportTotalTime)
     # 发送通知
-    sendBarkMessage(str(formatTotalTime(totalTime)) + 'h')
+    barkNotification = timeDetails
+    sendBarkMessage("上周工作时间: " + str(formatTotalTime(totalTime)) + 'h', barkNotification)
